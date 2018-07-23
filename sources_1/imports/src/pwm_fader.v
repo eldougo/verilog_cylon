@@ -53,17 +53,15 @@ module pwm_fader
   integer n;
   always @(posedge w_fade_pulse)
   begin
-    //if (w_fade_pulse) begin
-      for(n = 0; n < NUMBER_DEVICES; n = n + 1)  begin
-        if (active[n]) begin
-          dev_pwm[n] <= start_brightness;
-        end else if (dev_pwm[n] < FADE_SPEED) begin
-          dev_pwm[n] <= 0;
-        end else begin
-          dev_pwm[n] <= dev_pwm[n] - FADE_SPEED;
-        end
+    for(n = 0; n < NUMBER_DEVICES; n = n + 1)  begin
+      if (active[n]) begin
+        dev_pwm[n] <= start_brightness;
+      end else if (dev_pwm[n] < FADE_SPEED) begin
+        dev_pwm[n] <= 0;
+      end else begin
+        dev_pwm[n] <= dev_pwm[n] - FADE_SPEED;
       end
-    //end
+    end
   end
   
   // PWM counter

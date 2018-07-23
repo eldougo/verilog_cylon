@@ -31,7 +31,7 @@ module cylon (
   );
   
   //parameter CLOCK_CYCLES_PER_PULSE = 28'd6_250_000;
-  parameter CLOCK_CYCLES_PER_PULSE = 28'd25_000_000;
+  parameter CLOCK_CYCLES_PER_PULSE = 29'd25_000_000;
   localparam NUMBER_OF_LEDS = 16;
   
   localparam R_TO_L = 1'b0, L_TO_R = 1'b1;
@@ -45,8 +45,21 @@ module cylon (
   
   wire w_pulse_leds;
   
+  // 1/16th second pulse
+  pulse_generator pulse_leds (
+    .clk(clk),
+    .clks_per_pulse(pulse_speed),
+    .pulse(w_pulse_leds)
+  );
   
-  pulse_generator pulse_leds (.clk(clk), .clks_per_pulse(pulse_speed), .pulse(w_pulse_leds)); // 1/16th second pulse
+  // Fader
+  pwm_fader #(.NUMBER_DEVICES(NUMBER_OF_LEDS)) led_fader(
+    .clk(clk),
+    .linger_clks(pulse_speed >> 1),
+    .start_brightness(4'hf),
+    .active(16'b1 << pointer),
+    .faded_out(led)
+  );
   
   // Set the pulse speed based on the position of the input switches
   always @(posedge clk)
@@ -108,14 +121,5 @@ module cylon (
       end
     //end
   end
-  
-  // Fader
-  pwm_fader #(.NUMBER_DEVICES(NUMBER_OF_LEDS)) led_fader(
-    .clk(clk),
-    .linger_clks(pulse_speed >> 1),
-    .start_brightness(4'hf),
-    .active(16'b1 << pointer),
-    .faded_out(led)
-  );
   
 endmodule
