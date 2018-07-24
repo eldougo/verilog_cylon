@@ -19,30 +19,37 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+`define PRESS_BUTTON btnU
 
 module cylon_tb();
   reg clk = 0;
   reg btnC = 0;
+  reg btnU = 0;
   reg btnL = 0;
   reg btnR = 0;
-  wire w_pulse_16;
+  //wire w_pulse_16;
   wire [15:0] w_led;
   
   always #5 clk = !clk;
   
-  cylon_top #(.CLOCK_CYCLES_PER_PULSE(28'd500)) cylon_UUT (
+  cylon_top 
+  #(
+    .CLOCK_CYCLES_PER_PULSE(29'd500),
+    .CLOCK_CYCLES_PER_SECOND(29'd500)
+  ) cylon_UUT (
     .clk(clk),
-    .sw(16'h00f3),
+    .sw(4'h7),
     .btnC(btnC),
+    .btnU(btnU),
     .btnL(btnL),
     .btnR(btnR),
     .led(w_led));
   
   initial begin
     #1000;
-    btnC = 1'b1;
+    `PRESS_BUTTON = 1'b1;
     #200;
-    btnC = 1'b0;
+    `PRESS_BUTTON = 1'b0;
   end
   
   initial begin
