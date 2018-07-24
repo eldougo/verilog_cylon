@@ -9,7 +9,7 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: 
+// Description: Set the PWM of the passed devices to 100% luminosity and fade the rest.
 // 
 // Dependencies: 
 // 
