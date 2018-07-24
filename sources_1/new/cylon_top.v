@@ -56,7 +56,7 @@ module cylon_top(
     end else if (btnR) begin
       mode <= MODE_L_TO_R;
     end else if (btnL) begin
-      mode <= MODE_L_TO_R;
+      mode <= MODE_R_TO_L;
     end else begin
       
     end

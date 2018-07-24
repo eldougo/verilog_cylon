@@ -9,7 +9,7 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: 
+// Description: Do the cliche cylon thingy with the board's LEDs. 
 // 
 // Dependencies: 
 // 
