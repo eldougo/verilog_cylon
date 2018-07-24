@@ -22,7 +22,7 @@
 
 module cylon_top(
     input clk,
-    input [15:0] sw,
+    input [3:0] sw,
     input btnC,
     input btnL,
     input btnR,
