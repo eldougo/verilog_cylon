@@ -1,29 +1,9 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 23.07.2018 12:04:40
-// Design Name: 
-// Module Name: cylon
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: Do the cliche cylon thingy with the board's LEDs. 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 
-
-//parameter CLOCK_CYCLES_PER_PULSE = 29'd25_000_000;    // Four pulses per decond.
+// Description: Do the cliche cylon thingy with the board's LEDs.
 module cylon
   #(
-    CLOCK_CYCLES_PER_PULSE = 29'd25_000_000,
+    CLOCK_CYCLES_PER_PULSE = 29'd25_000_000, // Four pulses per second.
     NUMBER_OF_LEDS = 16
   )(
     input                       clk,
@@ -32,9 +12,6 @@ module cylon
     input  [3:0]                brightness, // Set the brightness level 0-15
     output [NUMBER_OF_LEDS-1:0] led
   );
-  
-  //parameter CLOCK_CYCLES_PER_PULSE = 29'd25_000_000; // Four pulses per decond.
-  //parameter NUMBER_OF_LEDS = 16;                      // The number of devices to activate
   
   localparam  DIRECTION_L = 1'b0,
               DIRECTION_R = 1'b1;

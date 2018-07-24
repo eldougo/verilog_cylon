@@ -1,25 +1,6 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 23.07.2018 18:21:52
-// Design Name: 
-// Module Name: pwm_fader
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+
 // Description: Set the PWM of the passed devices to 100% luminosity and fade the rest.
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-
 module pwm_fader
 #(
   NUMBER_DEVICES = 16

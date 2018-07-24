@@ -1,26 +1,10 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 23.07.2018 11:49:45
-// Design Name: 
-// Module Name: pulse_generator
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+
 // Description: Generate a pulse every time 'clks_per_pulse' clock cycles have been
 //              counted. Set 'clks_per_pulse' to  29'd100_000_000 for a 1 second pulse.
 //              With 30 bits, the maximum pulse interval is 2^31-1 = 29'd2147483647, 
-//              which is like 2.147 seconds. 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
+//              which is like 2.147 seconds.
+//
 // Set clks_per_pulse to 29'd100_000_000 for a 1 second pulse.
 module pulse_generator
 #(
