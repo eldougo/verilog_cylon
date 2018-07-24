@@ -30,7 +30,7 @@ module cylon_tb();
   
   always #5 clk = !clk;
   
-  cylon #(.CLOCK_CYCLES_PER_PULSE(28'd500)) UUT1 (
+  cylon_top #(.CLOCK_CYCLES_PER_PULSE(28'd500)) UUT1 (
     .clk(clk),
     .sw(16'h0003),
     .btnC(btnC),
