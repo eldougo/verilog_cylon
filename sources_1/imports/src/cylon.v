@@ -22,16 +22,19 @@
 
 //parameter CLOCK_CYCLES_PER_PULSE = 29'd25_000_000;    // Four pulses per decond.
 module cylon
-  #(CLOCK_CYCLES_PER_PULSE = 29'd25_000_000, // Four pulses per decond.
-    NUMBER_OF_LEDS = 16                      // The number of devices to activate
+  #(
+    CLOCK_CYCLES_PER_PULSE = 29'd25_000_000,
+    NUMBER_OF_LEDS = 16
   )(
     input                       clk,
     input  [1:0]                mode,       // Cylon mode = 0, right to left = 1, left to right = 2 
     input  [3:0]                speed,      // Speed multiplier
+    input  [3:0]                brightness, // Set the brightness level 0-15
     output [NUMBER_OF_LEDS-1:0] led
   );
   
-  //localparam NUMBER_OF_LEDS = 16;
+  //parameter CLOCK_CYCLES_PER_PULSE = 29'd25_000_000; // Four pulses per decond.
+  //parameter NUMBER_OF_LEDS = 16;                      // The number of devices to activate
   
   localparam  DIRECTION_L = 1'b0,
               DIRECTION_R = 1'b1;
@@ -57,7 +60,7 @@ module cylon
   pwm_fader #(.NUMBER_DEVICES(NUMBER_OF_LEDS)) led_fader(
     .clk(clk),
     .linger_clks(pulse_speed >> 1),
-    .start_brightness(4'hf),
+    .start_brightness(brightness),
     .active(16'b1 << pointer),
     .faded_out(led)
   );
@@ -71,42 +74,26 @@ module cylon
   // Move the LEDs
   always @(posedge w_pulse_leds)
   begin
-    //if (w_pulse_leds) begin
-      if (mode == MODE_L_TO_R) direction = DIRECTION_R;
-      if (mode == MODE_L_TO_R_TO_L) direction = DIRECTION_L;
-
-      if (pointer == 4'hf) begin
-        if (mode == MODE_L_TO_R) begin
-          direction = DIRECTION_R;
-          
-        end else if (mode == MODE_L_TO_R_TO_L) begin
-          direction = DIRECTION_L;
-          //pointer = 4'h0;
-          
-        end else begin
-          direction = DIRECTION_R;
-          
-        end
-      end else if(pointer == 4'h0) begin
-        if (mode == MODE_L_TO_R) begin
-          direction = DIRECTION_R;
-          //pointer = 4'hF;
-          
-        end else if (mode == MODE_L_TO_R_TO_L) begin
-          direction = DIRECTION_L;
-          
-        end else begin
-          direction = DIRECTION_L;
-          
-        end
+    case (mode)
+    
+    // set direction depending on mode and/or position
+    MODE_L_TO_R: direction = DIRECTION_R;
+    MODE_R_TO_L: direction = DIRECTION_L;
+    default:
+      // Cylon mode
+      begin
+        if (pointer == 4'hf)     direction = DIRECTION_R;
+        else if(pointer == 4'h0) direction = DIRECTION_L;
+        
       end
-      
-      if (direction == DIRECTION_L) begin
-        pointer = pointer + 1'b1;
-      end else begin
-        pointer = pointer - 1'b1;
-      end
-    //end
+    endcase
+    
+    // Move in the given direction
+    if (direction == DIRECTION_L) begin
+      pointer = pointer + 1'b1;
+    end else begin
+      pointer = pointer - 1'b1;
+    end
   end
   
 endmodule

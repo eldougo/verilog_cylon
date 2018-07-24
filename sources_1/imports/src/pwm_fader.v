@@ -37,7 +37,7 @@ module pwm_fader
   reg [3:0]  dev_pwm[0:NUMBER_DEVICES-1];
   reg [3:0]  pwm_cntr = 0;
   
-  // Generate fade pulses
+  // Generate fader pulses
   pulse_generator pulse_pwm (.clk(clk), .clks_per_pulse(linger_clks), .pulse(w_fade_pulse));
     
   // Set the all PWMs to zero 

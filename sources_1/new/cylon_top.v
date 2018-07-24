@@ -29,18 +29,22 @@ module cylon_top(
     output [15:0] led
   );
 
+  parameter CLOCK_CYCLES_PER_PULSE = 29'd25_000_000;
+
   localparam  MODE_CYLON  = 2'b00,
               MODE_R_TO_L = 2'b01,
               MODE_L_TO_R = 2'b10;
   
-  reg [2:0] mode = MODE_CYLON;
+  reg [1:0] mode = MODE_CYLON;
   
-  cylon #(.CLOCK_CYCLES_PER_PULSE(29'd25_000_000),    // Four pulses per decond.
-          .NUMBER_OF_LEDS(16)                      // The number of devices to activate
-    )(
+  cylon #(
+    .CLOCK_CYCLES_PER_PULSE(CLOCK_CYCLES_PER_PULSE),    // Four pulses per decond.
+    .NUMBER_OF_LEDS(16)                                 // The number of devices to activate
+    ) cylon (
       .clk(clk),
-      .mode(mode),       // Cylon mode = 0, right to left = 1, left to right = 2 
-      .speed(sw[2:0]),      // Speed multiplier
+      .mode(mode),                                    // Cylon mode = 0, right to left = 1, left to right = 2 
+      .speed({1'b0, sw[2:0]}),                                // Speed multiplier
+      .brightness({sw[3],3'b111}),                           // Set thi brightness
       .led(led)
     );
   
