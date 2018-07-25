@@ -19,7 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-`define PRESS_BUTTON btnU
+`define PRESS_BUTTON btnC
 
 module cylon_tb();
   reg clk = 0;
@@ -38,7 +38,7 @@ module cylon_tb();
     .CLOCK_CYCLES_PER_SECOND(29'd500)
   ) cylon_UUT (
     .clk(clk),
-    .sw(4'h7),
+    .sw(4'h2),
     .btnC(btnC),
     .btnU(btnU),
     .btnL(btnL),
